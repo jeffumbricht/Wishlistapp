@@ -8,7 +8,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>{{ config('app.name', 'Christmas') }}</title>
 
   <!-- Styles -->
   <link href="{{ asset('css/main.css') }}" rel="stylesheet">
@@ -29,7 +29,7 @@
 
           <!-- Branding Image -->
           <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            {{ config('app.name', 'Christmas') }}
           </a>
         </div>
 
@@ -46,30 +46,25 @@
             <li><a href="{{ route('login') }}">Login</a></li>
             <li><a href="{{ route('register') }}">Register</a></li>
             @else
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                {{ Auth::user()->name }} <span class="caret"></span>
+            <li>
+              <a href="#">Hello, {{ Auth::user()->name }}</a>
+            </li>
+            <li>
+              <a href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                Logout
               </a>
 
-              <ul class="dropdown-menu" role="menu">
-                <li>
-                  <a href="{{ route('logout') }}"
-                  onclick="event.preventDefault();
-                  document.getElementById('logout-form').submit();">
-                  Logout
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  {{ csrf_field() }}
-                </form>
-              </li>
-            </ul>
-          </li>
-          @endif
-        </ul>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+              </form>
+            </li>
+            @endif
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
   @yield('content')
 </div>
