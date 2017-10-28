@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\WishlistItem;
 
 class WishlistItemController extends Controller
@@ -40,7 +41,8 @@ class WishlistItemController extends Controller
         $wishlistItem = new WishlistItem([
           'title' => $request->get('title'),
           'description' => $request->get('description'),
-          'link' => $request->get('link')
+          'link' => $request->get('link'),
+          'user_id' => Auth::id()
         ]);
 
         $wishlistItem->save();

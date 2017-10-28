@@ -10,6 +10,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Link</th>
+        <th>Owner</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +20,7 @@
         <td>{{$post['title']}}</td>
         <td>{{$post['description']}}</td>
         <td>{{$post['link']}}</td>
+        <td>{{$post['user_id']}}</td>
       </tr>
       @endforeach
     </tbody>
