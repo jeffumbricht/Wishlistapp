@@ -14,6 +14,7 @@
         <th>Description</th>
         <th>Link</th>
         <th>Owner</th>
+        <th>Buyer</th>
         <th colspan="2">Action</th>
       </tr>
     </thead>
@@ -29,6 +30,7 @@
         <td>{{$post['description']}}</td>
         <td>{{$post['link']}}</td>
         <td>{{$post['user_id']}}</td>
+        <td>{{$post['buyer_id']}}</td>
         <td><a href="{{action('WishlistItemController@edit', $post['id'])}}" class="btn btn-warning">Edit</a></td>
         {{-- <td><a href="{{action('WishlistItemController@destroy', $post['id'])}}" class="btn btn-danger">Delete</a></td> --}}
         <td>

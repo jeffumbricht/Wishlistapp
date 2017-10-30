@@ -16,6 +16,12 @@ class DatabaseSeeder extends Seeder
     DB::table('users')->delete();
     DB::table('wishlist_items')->delete();
 
+    DB::table('users')->insert([
+      'name' => str_random(10),
+      'email' => 'email@gmail.com',
+      'password' => bcrypt('secret'),
+    ]);
+
     factory(App\User::class, 5)->create()->each(function ($u) {
       factory(App\WishlistItem::class, 5)->create(['user_id' => $u->id]);
     });
