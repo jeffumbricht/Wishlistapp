@@ -15,7 +15,6 @@ class UserTableSeeder extends Seeder
   public function run()
   {
     $role_admin  = Role::where('name', 'admin')->first();
-    $role_generic = Role::where('name', 'generic')->first();
 
     $admin = new User();
     $admin->name = 'Admin';
@@ -26,7 +25,7 @@ class UserTableSeeder extends Seeder
 
 
     factory(User::class, 5)->create()->each(function ($u) {
-      $u->roles()->attach($role_generic);
+      $u->roles()->attach(Role::where('name', 'generic')->first());
       factory(WishlistItem::class, 5)->create(['user_id' => $u->id]);
     });
   }
