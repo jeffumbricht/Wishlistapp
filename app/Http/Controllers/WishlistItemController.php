@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\WishlistItem;
 
-class WishlistItemController extends Controller
+class WishlistItemController extends AuthController
 {
   /**
    * Display a listing of the resource.
