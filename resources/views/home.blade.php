@@ -24,7 +24,7 @@
               </tr>
             </thead>
             <tbody>
-            @foreach($wishlistItems as $post)
+            @forelse($wishlistItems as $post)
             <tr>
               <td>
                 <a href="{{action('WishlistItemController@show', $post['id'])}}">
@@ -43,7 +43,11 @@
                 </form>
               </td>
             </tr>
-            @endforeach
+            @empty
+            <tr>
+              <td colspan="5">No Wishlist Items</td>
+            </tr>
+            @endforelse
           </tbody>
         </table>
         </div>
