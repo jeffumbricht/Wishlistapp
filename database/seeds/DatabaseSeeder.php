@@ -11,19 +11,14 @@ class DatabaseSeeder extends Seeder
    */
   public function run()
   {
-
+    // Clear everything out
     Schema::disableForeignKeyConstraints();
     DB::table('users')->delete();
+    DB::table('role_user')->delete();
+    DB::table('roles')->delete();
     DB::table('wishlist_items')->delete();
-
-    DB::table('users')->insert([
-      'name' => str_random(10),
-      'email' => 'email@gmail.com',
-      'password' => bcrypt('secret'),
-    ]);
-
-    factory(App\User::class, 5)->create()->each(function ($u) {
-      factory(App\WishlistItem::class, 5)->create(['user_id' => $u->id]);
-    });
+    // seeds
+    $this->call(RoleTableSeeder::class);
+    $this->call(UserTableSeeder::class);
   }
 }
