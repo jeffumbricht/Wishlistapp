@@ -49,6 +49,14 @@
             <li>
               <a href="#">Hello, {{ Auth::user()->name }}</a>
             </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Family <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                @foreach($users as $user)
+                  <li><a href="#">{{ $user->name }}</a></li>
+                @endforeach
+              </ul>
+            </li>
             <li>
               <a href="{{ route('logout') }}"
                 onclick="event.preventDefault();
@@ -70,6 +78,7 @@
 </div>
 
 <!-- Scripts -->
-{{-- <script src="{{ asset('js/app.js') }}"></script> --}}
+{{-- TODO build this in gulp --}}
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
