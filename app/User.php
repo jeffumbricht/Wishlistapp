@@ -36,6 +36,17 @@ class User extends Authenticatable
   }
 
   /**
+   * Check if user owns wishlist item
+   */
+  public function ownsItemId($id)
+  {
+    // Pull items and collapse to just get ids
+    $items = $this->wishlistItems->toArray();
+    $ids = array_column($items, 'id');
+    return in_array($id, $ids);
+  }
+
+  /**
    * User roles
    */
   public function roles()

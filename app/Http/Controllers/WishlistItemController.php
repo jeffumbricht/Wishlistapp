@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\WishlistItem;
+use App\User;
 
 class WishlistItemController extends AuthController
 {
@@ -15,7 +16,7 @@ class WishlistItemController extends AuthController
    */
   public function index()
   {
-    $wishlistItems = WishlistItem::all()->toArray();
+    $wishlistItems = Auth::user()->wishlistItems->toArray();
 
     return view('wishlistItem.index', compact('wishlistItems'));
   }
@@ -50,16 +51,20 @@ class WishlistItemController extends AuthController
   }
 
   /**
-   * Display the specified resource.
+   * Display the specified resource if it belongs to current user
    *
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
   public function show($id)
   {
-    $wishlistItem = WishlistItem::find($id);
-
-    return view('wishlistItem.view', compact('wishlistItem','id'));
+    if(Auth::user()->ownsItemId($id)) {
+      $wishlistItem = WishlistItem::find($id);
+      return view('wishlistItem.view', compact('wishlistItem','id'));
+    }
+    else {
+      return redirect('home');
+    }
   }
 
   /**
@@ -70,9 +75,14 @@ class WishlistItemController extends AuthController
    */
   public function edit($id)
   {
-    $wishlistItem = WishlistItem::find($id);
+    if(Auth::user()->ownsItemId($id)) {
+      $wishlistItem = WishlistItem::find($id);
 
-    return view('wishlistItem.edit', compact('wishlistItem','id'));
+      return view('wishlistItem.edit', compact('wishlistItem','id'));
+    }
+    else {
+      return redirect('home');
+    }
   }
 
   /**
@@ -84,12 +94,17 @@ class WishlistItemController extends AuthController
    */
   public function update(Request $request, $id)
   {
-    $wishlistItem = WishlistItem::find($id);
-    $wishlistItem->title = $request->get('title');
-    $wishlistItem->description = $request->get('description');
-    $wishlistItem->link = $request->get('link');
-    $wishlistItem->save();
-    return redirect('/wishlistItem');
+    if(Auth::user()->ownsItemId($id)) {
+      $wishlistItem = WishlistItem::find($id);
+      $wishlistItem->title = $request->get('title');
+      $wishlistItem->description = $request->get('description');
+      $wishlistItem->link = $request->get('link');
+      $wishlistItem->save();
+      return redirect('/wishlistItem');
+    }
+    else {
+      return redirect('home');
+    }
   }
 
   /**
@@ -100,9 +115,14 @@ class WishlistItemController extends AuthController
    */
   public function destroy($id)
   {
-    $wishlistItem = WishlistItem::find($id);
-    $wishlistItem->delete();
+    if(Auth::user()->ownsItemId($id)) {
+      $wishlistItem = WishlistItem::find($id);
+      $wishlistItem->delete();
 
-    return redirect('/wishlistItem');
+      return redirect('/wishlistItem');
+    }
+    else {
+      return redirect('home');
+    }
   }
 }
