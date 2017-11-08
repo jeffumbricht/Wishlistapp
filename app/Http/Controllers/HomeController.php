@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\User;
 
 class HomeController extends AuthController
 {
@@ -16,7 +15,7 @@ class HomeController extends AuthController
    */
   public function index()
   {
-    $wishlistItems = User::find(Auth::id())->wishlistItems->toArray();
+    $wishlistItems = Auth::user()->wishlistItems->toArray();
 
     return view('home', compact('wishlistItems'));
   }
