@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('wishlistItem', 'WishlistItemController');
+
+Route::get('user/{id}', 'UserController@index')->name('user');

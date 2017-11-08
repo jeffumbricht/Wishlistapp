@@ -53,7 +53,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Family <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 @foreach($users as $user)
-                  <li><a href="#">{{ $user->name }}</a></li>
+                  <li><a href="{{ route('user',['id'=>$user->id]) }}">{{ $user->name }}</a></li>
                 @endforeach
               </ul>
             </li>
