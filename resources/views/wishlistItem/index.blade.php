@@ -19,9 +19,7 @@
       @foreach($wishlistItems as $post)
       <tr>
         <td>
-          <a href="{{action('WishlistItemController@show', $post['id'])}}">
-            {{$post['title']}}
-          </a>
+          {{$post['title']}}
         </td>
         <td>{{$post['description']}}</td>
         <td>{{$post['link']}}</td>
