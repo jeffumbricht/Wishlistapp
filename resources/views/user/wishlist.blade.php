@@ -26,7 +26,12 @@
         @if ($item->buyer_id)
           {{-- Someone is buying this, is it you?! --}}
           @if ($item->buyer_id == Auth::id())
-          You are buying this
+          <form action="{{action('WishlistItemController@unbuy')}}" method="post">
+            {{csrf_field()}}
+            <input name="_method" type="hidden" value="PATCH">
+            <input name="id" type="hidden" value="{{$item['id']}}">
+            <button class="btn btn-default" type="submit">No Longer Buying</button>
+          </form>
           @else
           {{ $item->buyerName() }} is buying this
           @endif

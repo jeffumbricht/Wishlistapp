@@ -114,6 +114,29 @@ class WishlistItemController extends AuthController
   }
 
   /**
+   * Update the specified resource in storage - mark as not bought
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function unbuy(Request $request)
+  {
+    $id = $request->get('id');
+
+    if(!Auth::user()->ownsItemId($id)) {
+      $wishlistItem = WishlistItem::find($id);
+      $wishlistItem->buyer_id = null;
+      $wishlistItem->save();
+      return redirect()->back();
+
+    }
+    else {
+      return redirect('home');
+    }
+  }
+
+  /**
    * Remove the specified resource from storage.
    *
    * @param  int  $id
