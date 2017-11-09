@@ -22,7 +22,7 @@ class UserController extends AuthController
     if ($id != Auth::id() && $user) {
       $wishlistItems = $user->wishlistItems;
 
-      return view('wishlistItem.wishlist')
+      return view('user.wishlist')
         ->with('wishlistItems', $wishlistItems)
         ->with('name', $user->name);
     }
