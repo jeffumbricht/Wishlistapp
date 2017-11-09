@@ -23,7 +23,7 @@
         <td>{{$item['description']}}</td>
         <td>{{$item['link']}}</td>
         <td>{{ $item->buyerName() }}</td>
-        <td><a href="{{action('WishlistItemController@edit', $item['id'])}}" class="btn btn-warning">Buy</a></td>
+        <td><a href="#" class="btn btn-default">Buy</a></td>
       </tr>
       @endforeach
     </tbody>
