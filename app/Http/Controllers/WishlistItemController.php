@@ -47,7 +47,7 @@ class WishlistItemController extends AuthController
     ]);
 
     $wishlistItem->save();
-    return redirect('/wishlistItem');
+    return redirect('/home');
   }
 
   /**
@@ -83,7 +83,30 @@ class WishlistItemController extends AuthController
       $wishlistItem->description = $request->get('description');
       $wishlistItem->link = $request->get('link');
       $wishlistItem->save();
-      return redirect('/wishlistItem');
+      return redirect('/home');
+    }
+    else {
+      return redirect('home');
+    }
+  }
+
+  /**
+   * Update the specified resource in storage - mark as bought
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function buy(Request $request)
+  {
+    $id = $request->get('id');
+
+    if(!Auth::user()->ownsItemId($id)) {
+      $wishlistItem = WishlistItem::find($id);
+      $wishlistItem->buyer_id = Auth::id();
+      $wishlistItem->save();
+      return redirect()->back();
+
     }
     else {
       return redirect('home');
@@ -102,7 +125,7 @@ class WishlistItemController extends AuthController
       $wishlistItem = WishlistItem::find($id);
       $wishlistItem->delete();
 
-      return redirect('/wishlistItem');
+      return redirect('/home');
     }
     else {
       return redirect('home');
