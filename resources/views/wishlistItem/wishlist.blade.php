@@ -15,17 +15,17 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($wishlistItems as $post)
+      @foreach($wishlistItems as $item)
       <tr>
         <td>
-          <a href="{{action('WishlistItemController@show', $post['id'])}}">
-            {{$post['title']}}
+          <a href="{{action('WishlistItemController@show', $item['id'])}}">
+            {{$item['title']}}
           </a>
         </td>
-        <td>{{$post['description']}}</td>
-        <td>{{$post['link']}}</td>
-        <td><!--buyer--></td>
-        <td><a href="{{action('WishlistItemController@edit', $post['id'])}}" class="btn btn-warning">Buy</a></td>
+        <td>{{$item['description']}}</td>
+        <td>{{$item['link']}}</td>
+        <td>{{ $item->buyerName() }}</td>
+        <td><a href="{{action('WishlistItemController@edit', $item['id'])}}" class="btn btn-warning">Buy</a></td>
       </tr>
       @endforeach
     </tbody>

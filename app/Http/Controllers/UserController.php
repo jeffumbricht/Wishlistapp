@@ -20,9 +20,10 @@ class UserController extends AuthController
     $user = User::find($id);
     // isn't this user and is a user
     if ($id != Auth::id() && $user) {
-      $wishlistItems = $user->wishlistItems->toArray();
+      $wishlistItems = $user->wishlistItems;
 
-      return view('wishlistItem.wishlist', compact('wishlistItems'))
+      return view('wishlistItem.wishlist')
+        ->with('wishlistItems', $wishlistItems)
         ->with('name', $user->name);
     }
     else {
