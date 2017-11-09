@@ -17,10 +17,13 @@ class UserController extends AuthController
    */
   public function index($id)
   {
+    $user = User::find($id);
     // isn't this user and is a user
-    if ($id != Auth::id() && User::find($id)) {
-      $wishlistItems = User::find($id)->wishlistItems->toArray();
-      return view('home', compact('wishlistItems'));
+    if ($id != Auth::id() && $user) {
+      $wishlistItems = $user->wishlistItems->toArray();
+
+      return view('wishlistItem.wishlist', compact('wishlistItems'))
+        ->with('name', $user->name);
     }
     else {
       // no peaking on your own
