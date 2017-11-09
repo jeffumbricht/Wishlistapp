@@ -51,23 +51,6 @@ class WishlistItemController extends AuthController
   }
 
   /**
-   * Display the specified resource if it belongs to current user
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function show($id)
-  {
-    if(Auth::user()->ownsItemId($id)) {
-      $wishlistItem = WishlistItem::find($id);
-      return view('wishlistItem.view', compact('wishlistItem','id'));
-    }
-    else {
-      return redirect('home');
-    }
-  }
-
-  /**
    * Show the form for editing the specified resource.
    *
    * @param  int  $id
