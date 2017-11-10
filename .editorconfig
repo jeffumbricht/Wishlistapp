@@ -9,6 +9,17 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+# Laravel likes to use 4 spaces or tabs in generators
+# so we'll do that too
+[*.php]
+indent_style = space
+indent_size = 4
+
+# Make sure the HTML is 2 spaces
+[*blade.php]
+indent_style = space
+indent_size = 2
+
 [*.sublime-*]
 indent_style = tab
 indent_size = 2
