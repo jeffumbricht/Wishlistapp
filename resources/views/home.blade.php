@@ -4,7 +4,7 @@
 @section('content')
   <div class="container">
     <p>
-      <a href="{{action('WishlistItemController@create')}}">New Item</a>
+      <a class="btn btn-primary" href="{{action('WishlistItemController@create')}}">New Item</a>
     </p>
     <table class="table table-striped">
     <thead>

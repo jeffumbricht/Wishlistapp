@@ -30,7 +30,7 @@
             {{csrf_field()}}
             <input name="_method" type="hidden" value="PATCH">
             <input name="id" type="hidden" value="{{$item['id']}}">
-            <button class="btn btn-default" type="submit">No Longer Buying</button>
+            <button class="btn btn-danger" type="submit">No Longer Buying</button>
           </form>
           @else
           {{ $item->buyerName() }} is buying this
@@ -40,7 +40,7 @@
             {{csrf_field()}}
             <input name="_method" type="hidden" value="PATCH">
             <input name="id" type="hidden" value="{{$item['id']}}">
-            <button class="btn btn-default" type="submit">Buy</button>
+            <button class="btn btn-success" type="submit">Buy</button>
           </form>
           @endif
         </td>
