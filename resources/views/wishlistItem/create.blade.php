@@ -1,6 +1,6 @@
 <!-- create.blade.php -->
 
-@extends('layouts.app')
+@extends('wishlistItem.base')
 @section('content')
 <div class="container">
   <form method="post" action="{{url('wishlistItem')}}">

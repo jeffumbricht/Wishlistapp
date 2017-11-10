@@ -39,6 +39,11 @@ class WishlistItemController extends AuthController
    */
   public function store(Request $request)
   {
+    $this->validate($request, [
+      'title' => 'required|max:255',
+      'description' => 'max:255'
+    ]);
+
     $wishlistItem = new WishlistItem([
       'title' => $request->get('title'),
       'description' => $request->get('description'),
@@ -77,6 +82,11 @@ class WishlistItemController extends AuthController
    */
   public function update(Request $request, $id)
   {
+    $this->validate($request, [
+      'title' => 'required|max:255',
+      'description' => 'max:255'
+    ]);
+
     if(Auth::user()->ownsItemId($id)) {
       $wishlistItem = WishlistItem::find($id);
       $wishlistItem->title = $request->get('title');
