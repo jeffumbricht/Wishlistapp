@@ -21,7 +21,8 @@ gulp.task('sass:watch', function () {
 gulp.task('js', function() {
   return gulp.src([
     './node_modules/jquery/dist/jquery.js',
-    './node_modules/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js'
+    './node_modules/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js',
+    './node_modules/bootstrap-sass/assets/javascripts/bootstrap/collapse.js'
   ])
   .pipe(concat('app.js'))
   .pipe(minify({
