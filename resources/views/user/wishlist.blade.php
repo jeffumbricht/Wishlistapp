@@ -20,7 +20,11 @@
           {{$item['title']}}
         </td>
         <td>{{$item['description']}}</td>
-        <td>{{$item['link']}}</td>
+        <td>
+          @if ($item['link'])
+          <a class="btn btn-default" href="{{$item['link']}}" target="_BLANK">Link</a>
+          @endif
+        </td>
         <td>
         {{-- @if (Auth::user()) --}}
         @if ($item->buyer_id)

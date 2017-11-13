@@ -16,17 +16,21 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($wishlistItems as $post)
+      @foreach($wishlistItems as $item)
       <tr>
         <td>
-          {{$post['title']}}
+          {{$item['title']}}
         </td>
-        <td>{{$post['description']}}</td>
-        <td>{{$post['link']}}</td>
-        <td><a href="{{action('WishlistItemController@edit', $post['id'])}}" class="btn btn-warning">Edit</a></td>
-        {{-- <td><a href="{{action('WishlistItemController@destroy', $post['id'])}}" class="btn btn-danger">Delete</a></td> --}}
+        <td>{{$item['description']}}</td>
         <td>
-          <form action="{{action('WishlistItemController@destroy', $post['id'])}}" method="post">
+          @if ($item['link'])
+          <a class="btn btn-default" href="{{$item['link']}}" target="_BLANK">Link</a>
+          @endif
+        </td>
+        <td><a href="{{action('WishlistItemController@edit', $item['id'])}}" class="btn btn-warning">Edit</a></td>
+        {{-- <td><a href="{{action('WishlistItemController@destroy', $item['id'])}}" class="btn btn-danger">Delete</a></td> --}}
+        <td>
+          <form action="{{action('WishlistItemController@destroy', $item['id'])}}" method="post">
             {{csrf_field()}}
             <input name="_method" type="hidden" value="DELETE">
             <button class="btn btn-danger" type="submit">Delete</button>
