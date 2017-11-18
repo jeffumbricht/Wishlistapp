@@ -44,7 +44,7 @@
             <!-- Authentication Links -->
             @if (Auth::guest())
               <li><a href="{{ route('login') }}">Login</a></li>
-              @if (env('REGISTRATION_ACTIVE', TRUE))
+              @if (env('REGISTRATION_ACTIVE', FALSE))
               <li><a href="{{ route('register') }}">Register</a></li>
               @endif
             @else
