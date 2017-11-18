@@ -43,8 +43,10 @@
           <ul class="nav navbar-nav navbar-right">
             <!-- Authentication Links -->
             @if (Auth::guest())
-            <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="{{ route('register') }}">Register</a></li>
+              <li><a href="{{ route('login') }}">Login</a></li>
+              @if (env('REGISTRATION_ACTIVE', TRUE))
+              <li><a href="{{ route('register') }}">Register</a></li>
+              @endif
             @else
             <li>
               <a href="#">Hello, {{ Auth::user()->name }}</a>
