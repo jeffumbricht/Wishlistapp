@@ -36,5 +36,7 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         require base_path('routes/console.php');
+        // laravel 5.5, Artisan can automatically discover commands so that you do not have to manually register them in your kernel.
+        $this->load(__DIR__.'/Commands');
     }
 }
