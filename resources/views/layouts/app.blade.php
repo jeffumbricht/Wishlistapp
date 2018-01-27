@@ -15,52 +15,41 @@
 </head>
 <body>
   <div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{{ url('/') }}">
+        {{ config('app.name', 'Holiday Wishlist') }}
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-          <!-- Collapsed Hamburger -->
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-            <span class="sr-only">Toggle Navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-
-          <!-- Branding Image -->
-          <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Holiday Wishlist') }}
-          </a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
-          <!-- Left Side Of Navbar -->
-          <ul class="nav navbar-nav">
-            &nbsp;
-          </ul>
-
-          <!-- Right Side Of Navbar -->
-          <ul class="nav navbar-nav navbar-right">
-            <!-- Authentication Links -->
-            @if (Auth::guest())
-              <li><a href="{{ route('login') }}">Login</a></li>
-              @if (env('REGISTRATION_ACTIVE', FALSE))
-              <li><a href="{{ route('register') }}">Register</a></li>
-              @endif
-            @else
-            <li>
-              <a href="#">Hello, {{ Auth::user()->name }}</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <!-- Authentication Links -->
+          @if (Auth::guest())
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('login') }}">Login</a>
             </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Family <span class="caret"></span></a>
-              <ul class="dropdown-menu">
+            @if (env('REGISTRATION_ACTIVE', FALSE))
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('register') }}">Register</a>
+            </li>
+            @endif
+          @else
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Family
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 @foreach($navUsers as $user)
-                  <li><a href="{{ route('user',['id'=>$user->id]) }}">{{ $user->name }}</a></li>
+                  <a class="dropdown-item" href="{{ route('user',['id'=>$user->id]) }}">
+                    {{ $user->name }}
+                  </a>
                 @endforeach
-              </ul>
+              </div>
             </li>
-            <li>
-              <a href="{{ route('logout') }}"
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
                 Logout
@@ -70,13 +59,21 @@
                 {{ csrf_field() }}
               </form>
             </li>
-            @endif
-          </ul>
-        </div>
+          @endif
+        </ul>
+
+        @if (!Auth::guest())
+        <span class="navbar-text">
+          Hello, {{ Auth::user()->name }}
+        </span>
+        @endif
+
       </div>
     </nav>
-  @yield('errors')
-  @yield('content')
+    <div class="container mt-5">
+    @yield('errors')
+    @yield('content')
+    </div>
 </div>
 
 <!-- Scripts -->

@@ -31,3 +31,5 @@
 
 5. Start gulp
 `vm$ gulp`
+
+**Note** Now using bootstrap 4, may need to set `artisan preset none` since bootstrap preset is 3.3.7 ish
