@@ -43,21 +43,11 @@ class WishlistItemController extends AuthController
             'title' => 'required|max:255',
             'description' => 'max:255'
         ]);
-        // link is not nullable, hotfix
-        $link = $request->get('link');
-        if ($link === null) {
-            $link = '';
-        }
-        // description is not nullable, hotfix
-        $desc = $request->get('description');
-        if ($desc === null) {
-            $desc = '';
-        }
 
         $wishlistItem = new WishlistItem([
             'title' => $request->get('title'),
-            'description' => $desc,
-            'link' => $link,
+            'description' => $request->get('description'),
+            'link' => $request->get('link'),
             'user_id' => Auth::id()
         ]);
 
@@ -98,20 +88,10 @@ class WishlistItemController extends AuthController
         ]);
 
         if(Auth::user()->ownsItemId($id)) {
-            // link is not nullable, hotfix
-            $link = $request->get('link');
-            if ($link === null) {
-                $link = '';
-            }
-            // description is not nullable, hotfix
-            $desc = $request->get('description');
-            if ($desc === null) {
-                $desc = '';
-            }
             $wishlistItem = WishlistItem::find($id);
             $wishlistItem->title = $request->get('title');
-            $wishlistItem->description = $desc;
-            $wishlistItem->link = $link;
+            $wishlistItem->description = $request->get('description');
+            $wishlistItem->link = $request->get('link');
             $wishlistItem->save();
             return redirect('/home');
         }
