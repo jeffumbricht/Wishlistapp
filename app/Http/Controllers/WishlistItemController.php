@@ -39,19 +39,37 @@ class WishlistItemController extends AuthController
      */
     public function store(Request $request)
     {
+        $userId = Auth::id();
+        $suggestedById = null;
+
         $this->validate($request, [
             'title' => 'required|max:255',
             'description' => 'max:255'
         ]);
 
+        // if this is a suggestion we need to update some stuff
+        if ($request->get('user_id')) {
+            $userId = $request->get('user_id');
+        }
+
+        if ($request->get('suggested_by_id')) {
+            $suggestedById = $request->get('suggested_by_id');
+        }
+
         $wishlistItem = new WishlistItem([
             'title' => $request->get('title'),
             'description' => $request->get('description'),
             'link' => $request->get('link'),
-            'user_id' => Auth::id()
+            'user_id' => $userId,
+            'suggested_by_id' => $suggestedById
         ]);
 
         $wishlistItem->save();
+
+        if ($suggestedById) {
+            return redirect()->route('user', ['id' => $userId]);
+        }
+
         return redirect('/home');
     }
 

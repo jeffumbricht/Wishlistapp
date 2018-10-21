@@ -15,7 +15,10 @@ class HomeController extends AuthController
     */
     public function index()
     {
-        $wishlistItems = Auth::user()->wishlistItems->toArray();
+        $wishlistItems = Auth::user()
+        ->wishlistItems
+        ->where('suggested_by_id', null)
+        ->toArray();
 
         return view('home', compact('wishlistItems'));
     }

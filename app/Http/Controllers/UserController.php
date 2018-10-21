@@ -20,11 +20,18 @@ class UserController extends AuthController
         $user = User::find($id);
         // isn't this user and is a user
         if ($id != Auth::id() && $user) {
-            $wishlistItems = $user->wishlistItems;
+
+            $wishlistItems = $user->wishlistItems
+                ->where('suggested_by_id', null);
+
+            $suggestedItems = $user->wishlistItems
+                ->where('suggested_by_id', '<>', null);
 
             return view('user.wishlist')
                 ->with('wishlistItems', $wishlistItems)
-                ->with('name', $user->name);
+                ->with('suggestedItems', $suggestedItems)
+                ->with('name', $user->name)
+                ->with('belongsToId', $user->id);
         }
         else {
             // no peaking on your own

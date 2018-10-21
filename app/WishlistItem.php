@@ -12,7 +12,7 @@ class WishlistItem extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'link', 'user_id', 'buyer_id'];
+    protected $fillable = ['title', 'description', 'link', 'user_id', 'buyer_id', 'suggested_by_id'];
 
     /**
      * Wishlist Item has a buyer
@@ -26,6 +26,16 @@ class WishlistItem extends Model
     public function buyerName()
     {
         return $this->buyer->name;
+    }
+
+    public function suggester()
+    {
+        return $this->hasOne('App\User', 'id', 'suggested_by_id');
+    }
+
+    public function suggestedBy()
+    {
+        return $this->suggester->name;
     }
 
 }
