@@ -23,10 +23,11 @@ class UserTableSeeder extends Seeder
         $admin->save();
         $admin->roles()->attach($role_admin);
 
-
         factory(User::class, 5)->create()->each(function ($u) {
             $u->roles()->attach(Role::where('name', 'generic')->first());
-            factory(WishlistItem::class, 5)->create(['user_id' => $u->id]);
+            factory(WishlistItem::class, 10)->create(['user_id' => $u->id]);
         });
+
+        factory(WishlistItem::class, 10)->create(['user_id' => $admin->id]);
     }
 }

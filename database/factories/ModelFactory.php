@@ -24,16 +24,32 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\WishlistItem::class, function (Faker\Generator $faker) {
-    static $user_id;
-    static $randomUser;
+    // static $user_id;
 
     return [
         'title' => $faker->word,
         'description' => $faker->sentence($nbWords = 6, $variableNbWords = true),
         'link' => $faker->url,
-        'user_id' => $user_id,
+        // 'user_id' => $user_id,
         // Generate buyer that is not current user
         'buyer_id' => function (array $user) {
+            $number = rand(1,10);
+            if ($number > 5) {
+                return NULL;
+            }
+
+            $randomUser = $user['user_id'];
+            while ($randomUser === $user['user_id']) {
+                $randomUser = App\User::inRandomOrder()->first()->id;
+            }
+            return $randomUser;
+        },
+        'suggested_by_id' => function (array $user) {
+            $number = rand(1,10);
+            if ($number > 5) {
+                return NULL;
+            }
+
             $randomUser = $user['user_id'];
             while ($randomUser === $user['user_id']) {
                 $randomUser = App\User::inRandomOrder()->first()->id;
