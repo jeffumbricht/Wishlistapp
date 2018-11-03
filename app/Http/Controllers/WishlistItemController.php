@@ -110,9 +110,13 @@ class WishlistItemController extends AuthController
     public function buy(Request $request)
     {
         $id = $request->get('id');
+        $wishlistItem = WishlistItem::find($id);
 
-        if(!Auth::user()->ownsItemId($id)) {
-            $wishlistItem = WishlistItem::find($id);
+        if(
+            !Auth::user()->ownsItemId($id)
+            &&
+            $wishlistItem->buyer_id === null
+        ) {
             $wishlistItem->buyer_id = Auth::id();
             $wishlistItem->save();
             return redirect()->back();
@@ -133,9 +137,13 @@ class WishlistItemController extends AuthController
     public function unbuy(Request $request)
     {
         $id = $request->get('id');
+        $wishlistItem = WishlistItem::find($id);
 
-        if(!Auth::user()->ownsItemId($id)) {
-            $wishlistItem = WishlistItem::find($id);
+        if(
+            !Auth::user()->ownsItemId($id)
+            &&
+            $wishlistItem->buyer_id === Auth::id()
+        ) {
             $wishlistItem->buyer_id = null;
             $wishlistItem->save();
             return redirect()->back();
